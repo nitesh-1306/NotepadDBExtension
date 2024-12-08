@@ -47,11 +47,9 @@ document.getElementById("tokenForm").addEventListener("submit", function (event)
 
 
 const enc_token = localStorage.getItem("gtoken");
-
 if (enc_token) {
     const key = parseInt(localStorage.getItem("ekey"));
     const savedToken = decipher(enc_token, key);
-    console.log(key, enc_token, savedToken)
     document.getElementById("token").value = savedToken;
     document.getElementById("encrkey").value = key;
 }
