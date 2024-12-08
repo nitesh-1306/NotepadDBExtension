@@ -1,0 +1,14 @@
+{
+	"manifest_version": 3,
+	"name": "NotepadDB",
+	"description": "Notepad which is linked to github Gist for storing the notes.",
+	"version": "1.0",
+	"icons": { "16": "icon.png" },
+	"permissions": ["storage"],
+	"action": {
+		"default_title": "Notepad DB",
+		"default_popup": "popup.html",
+		"default_icon": "icon.png"
+	},
+	"options_page": "settings.html"
+}
