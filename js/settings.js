@@ -1,38 +1,20 @@
-
 function cipher(content, key) {
-    if (key < 1 || key > 100) {
-        throw new Error('Key must be between 1 and 100');
-    }
-
-    let result = '';
-    for (let i = 0; i < content.length; i++) {
-        let char = content[i];
-        if (char.match(/[a-zA-Z]/)) {
-            let code = content.charCodeAt(i);
-            let base = (char >= 'a' && char <= 'z') ? 97 : 65;
-            char = String.fromCharCode(((code - base + key) % 26) + base);
-        }
-        result += char;
-    }
-    return result;
+    return transform(content, key);
 }
 
-function decipher(encrypted_content, key) {
-    if (key < 1 || key > 100) {
-        throw new Error('Key must be between 1 and 100');
-    }
+function decipher(content, key) {
+    return transform(content, -key);
+}
 
-    let result = '';
-    for (let i = 0; i < encrypted_content.length; i++) {
-        let char = encrypted_content[i];
-        if (char.match(/[a-zA-Z]/)) {
-            let code = encrypted_content.charCodeAt(i);
-            let base = (char >= 'a' && char <= 'z') ? 97 : 65;
-            char = String.fromCharCode(((code - base - key + 26) % 26) + base);
+function transform(content, shift) {
+    return content.split('').map(char => {
+        if (/[a-zA-Z]/.test(char)) {
+            const base = char >= 'a' ? 97 : 65;
+            const code = ((char.charCodeAt(0) - base + shift + 26) % 26) + base;
+            return String.fromCharCode(code);
         }
-        result += char;
-    }
-    return result;
+        return char;
+    }).join('');
 }
 
 document.getElementById("tokenForm").addEventListener("submit", function (event) {
@@ -43,6 +25,31 @@ document.getElementById("tokenForm").addEventListener("submit", function (event)
     localStorage.setItem("gtoken", encrypted_token);
     localStorage.setItem("ekey", encrkey);
     document.getElementById("message").textContent = "Encrypted Token saved successfully!";
+
+    const files = {
+        "Page1.txt": {
+            content: "This is a placeholder text.",
+        },
+    };
+
+    const message = {
+        action: "uploadGist",
+        payload: {
+            token,
+            description: "Page no. 1",
+            files,
+            isPublic: false,
+        }
+    }
+    chrome.runtime.sendMessage(
+        message,
+        (response) => {
+            if (response && response.success) {
+                console.log("Gist URL:", response.data);
+                localStorage.setItem("page1_id", response.data.id);
+            }
+        }
+    );
 });
 
 
