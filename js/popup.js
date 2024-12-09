@@ -93,19 +93,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let saveTimeout;
     let filename = "test.txt"
-    let content = textarea.value;
+    let files = null;
 
-    const files = {
-        [filename]: {
-            content,
-        },
-    };
+    
     textarea.addEventListener("input", function () {
         clearTimeout(saveTimeout);
         saveTimeout = setTimeout(() => {
+            files = {
+                [filename]: {
+                    "content": textarea.value
+                }
+            };
             chrome.storage.local.set({ savedText: textarea.value }, async function () {
                 console.log("Text saved!");
                 const response = await gistManager.uploadGist("Test Description from extension", files, false);
+                console.log(response);
             });
         }, 500);
     });
