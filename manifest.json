@@ -4,7 +4,11 @@
 	"description": "Notepad which is linked to github Gist for storing the notes.",
 	"version": "1.0",
 	"icons": { "16": "icon.png" },
-	"permissions": ["storage"],
+	"permissions": ["storage", "activeTab", "scripting"],
+	"background": {
+        "service_worker": "js/background.js"
+    },
+	"host_permissions": ["https://api.github.com/*"],
 	"action": {
 		"default_title": "Notepad DB",
 		"default_popup": "popup.html",
