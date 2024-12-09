@@ -18,4 +18,22 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         return true;
     }
+
+    if (message.action === "updateGist") {
+        const { pageid, token, description, files, isPublic } = message.payload;
+
+        const handleGistUpdate = async () => {
+            try {
+                const gistManager = new GistManager(token);
+                const response = await gistManager.updateGist(pageid, description, files, isPublic);
+                sendResponse({ success: true, data: response });
+            } catch (error) {
+                console.error("Gist Update Error:", error.message);
+                sendResponse({ success: false, error: error.message });
+            }
+        };
+        handleGistUpdate();
+
+        return true;
+    }
 });
