@@ -25,7 +25,7 @@ export class GistManager {
         return response.json();
     }
 
-    async uploadGist(description, files, isPublic = true) {
+    async uploadGist(description, files, isPublic = false) {
         if (!description || !files || Object.keys(files).length === 0) {
             throw new Error("Description and at least one file are required.");
         }
@@ -37,6 +37,21 @@ export class GistManager {
         };
 
         return await this.apiRequest("", "POST", data);
+    }
+
+    async updateGist(gistId, description, files, isPublic = false) {
+        if (!gistId) throw new Error("Gist ID is required.");
+        if (!description || !files || Object.keys(files).length === 0) {
+            throw new Error("Description and at least one file are required.");
+        }
+
+        const data = {
+            description,
+            public: isPublic,
+            files,
+        };
+
+        return await this.apiRequest(`/${gistId}`, "PATCH", data);
     }
 
     async downloadGist(gistId) {
