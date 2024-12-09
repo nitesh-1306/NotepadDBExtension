@@ -46,20 +46,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     let saveTimeout;
-    let filename = "test.txt"
+    let filename = "Page1.txt"
     let files = null;
 
     textarea.addEventListener("input", function () {
         clearTimeout(saveTimeout);
         saveTimeout = setTimeout(() => {
+            let pageid = localStorage.getItem("page1_id");
             files = {
                 [filename]: {
                     content: textarea.value,
                 },
             };
             const message = {
-                action: "uploadGist",
+                action: "updateGist",
                 payload: {
+                    pageid,
                     token,
                     description: "Test Description from extension",
                     files,
