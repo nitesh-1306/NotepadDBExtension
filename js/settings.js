@@ -52,6 +52,24 @@ document.getElementById("tokenForm").addEventListener("submit", function (event)
     );
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const darkModeToggle = document.querySelector('.dark-mode-toggle');
+    const body = document.body;
+
+    if (localStorage.getItem('extdarkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('extdarkMode', 'enabled');
+        } else {
+            localStorage.removeItem('extdarkMode');
+        }
+    });
+});
+
 
 const enc_token = localStorage.getItem("gtoken");
 if (enc_token) {
