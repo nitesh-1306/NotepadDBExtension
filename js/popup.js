@@ -31,7 +31,6 @@ function loadState() {
     const savedState = localStorage.getItem('stickyNotesState');
     if (savedState) {
         const parsedState = JSON.parse(savedState);
-        console.log(parsedState);
         Object.assign(state, parsedState);
     }
 }
@@ -59,11 +58,11 @@ function createNoteElement(note) {
         <span class="note-label" contenteditable="true" data-id="${note.id}">${note.label || 'New Note'}</span>
         <button class="delete-btn" data-id="${note.id}"><i class="fas fa-trash-alt"></i></button>
     </div>
-    <textarea class="note-content" data-id="${note.id}">${note.content}</textarea>
+    <div contenteditable="true" class="note-content" data-id="${note.id}">${note.content.replaceAll("\n", "<br>")}</div>
     `;
 
 
-    const textarea = noteDiv.querySelector('textarea');
+    const textarea = noteDiv.querySelector('.note-content');
     const label = noteDiv.querySelector('.note-label');
     const deleteBtn = noteDiv.querySelector('.delete-btn');
 
@@ -71,7 +70,7 @@ function createNoteElement(note) {
         const noteId = parseInt(e.target.dataset.id);
         const noteIndex = state.folders[state.currentFolder].findIndex(n => n.id === noteId);
         if (noteIndex !== -1) {
-            state.folders[state.currentFolder][noteIndex].content = e.target.value;
+            state.folders[state.currentFolder][noteIndex].content = e.target.innerText;
             saveState();
         }
     });
