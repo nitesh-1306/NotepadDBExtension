@@ -1,8 +1,13 @@
+@font-face {
+    font-family: Smooth;
+    src: url('../assets/LabradorB-Bold.ttf');
+  }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: Smooth, Arial, sans-serif;
 }
 
 body {
@@ -26,6 +31,10 @@ body {
     min-width: 0;
 }
 
+.note-label{
+    font-size: 1.8em;
+}
+
 .toolbar {
     background-color: #2a2a2a;
     padding: 10px;
@@ -34,6 +43,7 @@ body {
     overflow-x: auto;
     flex-wrap: nowrap;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
 }
 
 .folder-btn {
@@ -101,8 +111,8 @@ body {
     border: none;
     color: #fff;
     resize: none;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 18px;
+    line-height: 1.2;
 }
 
 .bottom-toolbar {
@@ -120,7 +130,7 @@ body {
     color: #fff;
     cursor: pointer;
     padding: 5px;
-    font-size: 14px;
+    font-size: 20px;
 }
 
 @media (max-width: 768px) {
@@ -167,12 +177,12 @@ body {
 
     .folder-btn {
         padding: 5px 10px;
-        font-size: 0.9em;
+        font-size: 1.2em;
     }
 
     .format-btn {
         padding: 3px;
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .notes-container {
@@ -183,6 +193,7 @@ body {
 .note-header {
     display: flex;
     align-items: center;
+    justify-content: space-around;
     margin-bottom: 5px;
 }
 
@@ -191,7 +202,7 @@ body {
     border: none;
     color: #ff6666;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1.2em;
     margin-left: 70%;
 }
 
@@ -204,7 +215,7 @@ body {
         width: 30px;
         height: 30px;
         margin: 2px 0;
-        font-size: 0.8em;
+        font-size: 1em;
     }
 
     .note {
@@ -220,7 +231,7 @@ button {
 
 .notes-container,
 .toolbar {
-    scrollbar-width: thin;
+    scrollbar-width: none;
     scrollbar-color: #4a4a4a #2a2a2a;
 }
 
