@@ -236,6 +236,8 @@ button {
 }
 
 textarea {
+    border: none;
+    outline: none;
     padding: 8px;
 }
 
