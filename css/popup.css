@@ -33,6 +33,8 @@ body {
 
 .note-label{
     font-size: 1.8em;
+    border: none;
+    outline: none;
 }
 
 .toolbar {
