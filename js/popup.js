@@ -141,6 +141,22 @@ function init() {
           }
         });
       });
+
+    const openCalcBtn = document.getElementById('openCalcBtn');
+    const calculator = document.getElementById('calculator');
+    const overlay = document.getElementById('overlay');
+
+    openCalcBtn.addEventListener('click', () => {
+        calculator.classList.add('active');
+        overlay.classList.add('active');
+        document.body.classList.add('no-scroll');
+    });
+
+    overlay.addEventListener('click', () => {
+        calculator.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+    });
 }
 
 init();

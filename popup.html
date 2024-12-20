@@ -33,13 +33,75 @@
             <button class="sidebar-btn" id="settingsButton" title="User Settings"><i class="fas fa-user"></i></button>
             <button class="sidebar-btn"><i class="fas fa-sync" title="Sync Notes to Cloud"></i></button>
             <button class="sidebar-btn"><i class="fas fa-font"></i></button>
-            <button class="sidebar-btn"><i class="fas fa-calculator"></i></button>
+            <button class="sidebar-btn" id="openCalcBtn" title="Open Calculator"><i class="fas fa-calculator"></i></button>
             <button class="sidebar-btn"><i class="fas fa-chart-bar"></i></button>
             <button class="sidebar-btn"><i class="fas fa-share"></i></button>
             <button class="sidebar-btn"><i class="fas fa-question"></i></button>
         </div>
     </div>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="calc" id="calculator">
+        <div class="header">
+            <div class="titles">
+                Simple Calculator
+            </div>
+        </div>
+        <div class="display">
+            <div class="display-indicate">
+                max
+            </div>
+            <div class="display-main">
+                0
+            </div>
+
+            <div class="display-operations">
+                0
+            </div>
+        </div>
+
+        <div class="row">
+            <button class="button ac">ac</button>
+            <button class="button ce">ce</button>
+            <button class="button div">%</button>
+            <button class="button mult">x</button>
+        </div>
+
+        <div class="row">
+            <button class="button seven">7</button>
+            <button class="button eight">8</button>
+            <button class="button nine">9</button>
+            <button class="button minus">−</button>
+        </div>
+
+        <div class="row">
+            <button class="button four">4</button>
+            <button class="button five">5</button>
+            <button class="button six">6</button>
+            <button class="button plus">+</button>
+        </div>
+
+        <div class="bottom-row">
+            <div class="left">
+                <div class="row">
+                    <button class="button one">1</button>
+                    <button class="button two">2</button>
+                    <button class="button three">3</button>
+                </div>
+
+                <div class="row">
+                    <button class="button zero">0</button>
+                    <button class="button dot">.</button>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="button eq">=</div>
+            </div>
+        </div>
+    </div>
     <script src="js/popup.js"></script>
+    <script src="js/calculator.js"></script>
 </body>
 
 </html>
