@@ -1,75 +1,45 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA Compatible" content="ie=edge">
-	<title>Notepad </title>
-	<script type="module" src="js/popup.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-	<style>
-		body {
-			background: rgba(191, 191, 210, 0.25);
-			box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-			backdrop-filter: blur(6px);
-			-webkit-backdrop-filter: blur(6px);
-			border-radius: 10px;
-			border: 1px solid rgba(255, 255, 255, 0.18);
-			border: 1px solid #ccc;
-			padding: 10px;
-			width: 420px;
-			margin-bottom: 30px;
-			margin-top: 55px;
-			box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
-			position: relative;
-		}
-
-		#textarea {
-			width: 96%;
-			height: 92%;
-			border: none;
-			background: #fffbe3;
-			border-radius: 12px;
-			padding: 10px;
-			font-size: 16px;
-			resize: none;
-		}
-
-		html {
-			margin: 0;
-			padding: 0;
-			width: 100%;
-			height: 42rem;
-			position: relative;
-			top: -50px;
-		}
-
-		body::-webkit-scrollbar,
-		body::-webkit-scrollbar-button {
-			display: none;
-		}
-
-		#cloud-upload {
-			position: absolute;
-			top: 10px;
-			right: 10px;
-			background: none;
-			border: none;
-			cursor: pointer;
-			font-size: 24px;
-			color: #333;
-			transition: color 0.3s ease;
-		}
-
-		.text-warning { color: #ffc107 !important; }
-		.text-info { color: #17a2b8 !important; }
-		.text-success { color: #28a745 !important; }
-		.text-danger { color: #dc3545 !important; }
-	</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA Compatible" content="ie=edge">
+    <title>NotepadDB</title>
+    <link rel="stylesheet" href="css/popup.css">
+    <script src="js/all.min.js"></script>
 </head>
+
 <body>
-	<h1 align="center">Notepad</h1>
-	<button id="cloud-upload" title="Upload to Cloud">
-		<i class="fas"></i>
-	</button>
-	<textarea id="textarea"></textarea>
+    <div class="container">
+        <div class="notes-area">
+            <div class="toolbar">
+                <button class="folder-btn active" data-folder="1">FOLDER 1</button>
+                <button class="folder-btn" data-folder="2">FOLDER 2</button>
+                <button class="folder-btn" data-folder="3">FOLDER 3</button>
+                <button class="folder-btn" data-folder="4">FOLDER 4</button>
+                <button class="folder-btn add-note">+/-</button>
+            </div>
+            <div class="notes-container"></div>
+            <div class="bottom-toolbar">
+                <button class="format-btn"><i class="fas fa-bold"></i></button>
+                <button class="format-btn"><i class="fas fa-italic"></i></button>
+                <button class="format-btn"><i class="fas fa-underline"></i></button>
+                <button class="format-btn"><i class="fas fa-list"></i></button>
+                <button class="format-btn"><i class="fas fa-link"></i></button>
+                <button class="format-btn"><i class="fas fa-text-height"></i></button>
+            </div>
+        </div>
+        <div class="sidebar">
+            <button class="sidebar-btn"><i class="fas fa-user"></i></button>
+            <button class="sidebar-btn"><i class="fas fa-sync"></i></button>
+            <button class="sidebar-btn"><i class="fas fa-font"></i></button>
+            <button class="sidebar-btn"><i class="fas fa-calculator"></i></button>
+            <button class="sidebar-btn"><i class="fas fa-chart-bar"></i></button>
+            <button class="sidebar-btn"><i class="fas fa-share"></i></button>
+            <button class="sidebar-btn"><i class="fas fa-question"></i></button>
+        </div>
+    </div>
+    <script src="js/popup.js"></script>
 </body>
+
 </html>
