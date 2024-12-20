@@ -133,6 +133,14 @@ function init() {
     });
 
     document.querySelector('.add-note').addEventListener('click', addNewNote);
+
+    document.getElementById("settingsButton").addEventListener("click", () => {
+        chrome.runtime.openOptionsPage(() => {
+          if (chrome.runtime.lastError) {
+            console.error(`Error: ${chrome.runtime.lastError}`);
+          }
+        });
+      });
 }
 
 init();
