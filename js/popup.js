@@ -36,7 +36,6 @@ function loadState() {
 }
 
 function saveState() {
-    console.log(state.folders);
     localStorage.setItem('stickyNotesState', JSON.stringify(state));
 }
 
@@ -72,6 +71,7 @@ function createNoteElement(note) {
         if (noteIndex !== -1) {
             state.folders[state.currentFolder][noteIndex].content = e.target.innerText;
             saveState();
+            contentChanged();
         }
     });
 
@@ -81,12 +81,14 @@ function createNoteElement(note) {
         if (noteIndex !== -1) {
             state.folders[state.currentFolder][noteIndex].label = e.target.innerText;
             saveState();
+            contentChanged();
         }
     });
 
     deleteBtn.addEventListener('click', (e) => {
         const button = e.target.closest('.delete-btn');
         deleteNote(button.dataset.id);
+        contentChanged();
     });
 
     return noteDiv;
@@ -95,7 +97,6 @@ function createNoteElement(note) {
 function deleteNote(noteId) {
     const noteIdNum = parseInt(noteId);
     state.folders[state.currentFolder] = state.folders[state.currentFolder].filter(n => n.id !== noteIdNum);
-    console.log(state.folders);
     saveState();
     renderNotes();
 }
@@ -135,11 +136,11 @@ function init() {
 
     document.getElementById("settingsButton").addEventListener("click", () => {
         chrome.runtime.openOptionsPage(() => {
-          if (chrome.runtime.lastError) {
-            console.error(`Error: ${chrome.runtime.lastError}`);
-          }
+            if (chrome.runtime.lastError) {
+                console.error(`Error: ${chrome.runtime.lastError}`);
+            }
         });
-      });
+    });
 
     const openCalcBtn = document.getElementById('openCalcBtn');
     const calculator = document.getElementById('calculator');
@@ -156,6 +157,128 @@ function init() {
         overlay.classList.remove('active');
         document.body.classList.remove('no-scroll');
     });
+
+    const syncButton = document.getElementById('syncButton');
+    let syncInProgress = false;
+    syncButton.addEventListener('click', (event) => {
+        if (syncInProgress) {
+            return;
+        };
+        syncButton.innerHTML = '<i class="fas fa-sync" title="Sync Notes to Cloud"></i>';
+        syncInProgress = true;
+        const syncicon = syncButton.querySelector('i');
+        syncicon.classList.add('fa-spin');
+
+        syncToGist().then((uploadSuccessful) => {
+            syncInProgress = false;
+            if (!uploadSuccessful) {
+                syncButton.innerHTML = '<i class="fas fa-times-circle" title="Sync Notes to Cloud"></i>';
+            }
+            else {
+                syncButton.innerHTML = '<i class="fas fa-check-circle" title="Sync Notes to Cloud"></i>';
+            }
+
+            chrome.alarms.create('resetSyncButton', { delayInMinutes: 0.03 });
+
+            chrome.alarms.onAlarm.addListener((alarm) => {
+                if (alarm.name === 'resetSyncButton') {
+                    syncButton.innerHTML = '<i class="fas fa-sync" title="Sync Notes to Cloud"></i>';
+                }
+            });
+        });
+    });
+}
+
+function getToken() {
+    let token = "";
+    const enc_token = localStorage.getItem("gtoken");
+    if (enc_token) {
+        const key = parseInt(localStorage.getItem("ekey"));
+        token = decipher(enc_token, key);
+    }
+    return token;
+}
+
+function sendRuntimeMessage(message) {
+    return new Promise((resolve) => {
+        chrome.runtime.sendMessage(message, (response) => resolve(response));
+    });
+}
+
+function generateSHA256Hash(string) {
+    const hash = CryptoJS.SHA256(string);
+    return hash.toString(CryptoJS.enc.Hex);
+}
+
+async function syncToGist() {
+    const files = {
+        "Notes.json": {
+            content: JSON.stringify(state),
+        },
+    };
+    let hash = generateSHA256Hash(JSON.stringify(files));
+    const token = getToken();
+    const pageid = localStorage.getItem("page1_id");
+    let payload = {
+        token,
+        description: hash,
+        files,
+        isPublic: false
+    };
+
+    try {
+        if (!pageid) {
+            const response = await sendRuntimeMessage({
+                action: "uploadGist",
+                payload
+            });
+
+            if (response?.success) {
+                localStorage.setItem('page1_id', response.data.id);
+                return true;
+            }
+            return false;
+        }
+
+        const remoteContent = await fetchGist(pageid, token);
+
+        if (remoteContent.description === hash) {
+            return true;
+        }
+
+        const response = await sendRuntimeMessage({
+            action: "updateGist",
+            payload: { ...payload, pageid }
+        });
+        return response?.success || false;
+    }
+    catch (error) {
+        console.error("Error in syncToGist:", error);
+        return false;
+    }
+}
+
+async function fetchGist(gistId, token) {
+    const url = `https://api.github.com/gists/${gistId}`;
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+            "Authorization": `token ${token}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch Gist");
+    }
+
+    const gist = await response.json();
+    return gist;
+}
+
+
+function contentChanged() {
+    const syncButton = document.getElementById('syncButton');
+    syncButton.innerHTML = '<i class="fas fa-exclamation-circle" title="Click to sync to cloud"></i>';
 }
 
 init();
