@@ -26,9 +26,33 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.form-container {
-    max-width: 400px;
+.container {
+    display: flex;
+    gap: 20px;
+    max-width: 800px;
     margin: 0 auto;
+}
+
+.folders-container {
+    flex: 0 0 300px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--input-bg);
+}
+
+.folder-input {
+    margin-bottom: 15px;
+}
+
+.folder-input label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-container {
+    flex: 1;
     padding: 20px;
     border: 1px solid var(--border-color);
     border-radius: 5px;
@@ -55,7 +79,8 @@ body {
     padding-right: 40px;
 }
 
-.form-container input {
+.form-container input,
+.folders-container input {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
@@ -66,7 +91,8 @@ body {
     box-sizing: border-box;
 }
 
-.submit-button {
+.submit-button,
+.save-folders-button {
     width: 100%;
     padding: 10px;
     background-color: var(--button-bg);
@@ -78,7 +104,8 @@ body {
     margin-bottom: 10px;
 }
 
-.submit-button:hover {
+.submit-button:hover,
+.save-folders-button:hover {
     background-color: var(--button-hover);
 }
 
@@ -93,13 +120,15 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
     text-align: center;
+    text-decoration: none;
 }
 
 .gist-button:hover {
     opacity: 0.9;
 }
 
-.message {
+.message,
+.folders-message {
     text-align: center;
     margin-top: 15px;
 }

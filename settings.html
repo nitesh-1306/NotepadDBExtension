@@ -4,28 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Save GitHub Token</title>
+    <title>User Settings</title>
     <link rel="stylesheet" href="css/settings.css">
 </head>
 
 <body>
     <button class="dark-mode-toggle" aria-label="Toggle Dark Mode">🌓</button>
-    
-    <div class="form-container">
-        <h2>Save GitHub Token</h2>
-        <form id="tokenForm">
-            <label for="token">GitHub Token:</label>
-            <div class="password-container">
-                <input type="password" id="token" name="token" required>
-                <button type="button" class="toggle-password" aria-label="Toggle Password Visibility">👁️</button>
+
+
+    <div class="container">
+        <div class="folders-container">
+            <h2>Folder Names</h2>
+            <div class="folder-input">
+                <label for="folder1">Folder 1:</label>
+                <input type="text" id="folder1" name="folder1" placeholder="Enter folder name" value="Folder 1">
             </div>
-            
-            <label for="encrkey">Encryption Key(1-100):</label>
-            <input type="number" id="encrkey" name="encrkey" min="1" max="100" required>
-            <button type="submit" class="submit-button">Save Token</button>
-        </form>
-        <a class="gist-button" id="gistview" href="#" target="_blank">View Gist File</a>
-        <div class="message" id="message"></div>
+            <div class="folder-input">
+                <label for="folder2">Folder 2:</label>
+                <input type="text" id="folder2" name="folder2" placeholder="Enter folder name" value="Folder 2">
+            </div>
+            <div class="folder-input">
+                <label for="folder3">Folder 3:</label>
+                <input type="text" id="folder3" name="folder3" placeholder="Enter folder name" value="Folder 3">
+            </div>
+            <div class="folder-input">
+                <label for="folder4">Folder 4:</label>
+                <input type="text" id="folder4" name="folder4" placeholder="Enter folder name" value="Folder 4">
+            </div>
+            <button type="button" class="save-folders-button" id="folderSave">Save Folders</button>
+            <div class="folders-message" id="foldersMessage"></div>
+        </div>
+        
+        <div class="form-container">
+            <h2>Save GitHub Token</h2>
+            <form id="tokenForm">
+                <label for="token">GitHub Token:</label>
+                <div class="password-container">
+                    <input type="password" id="token" name="token" required>
+                    <button type="button" class="toggle-password" aria-label="Toggle Password Visibility">👁️</button>
+                </div>
+                
+                <label for="encrkey">Encryption Key(1-100):</label>
+                <input type="number" id="encrkey" name="encrkey" min="1" max="100" required>
+                <button type="submit" class="submit-button">Save Token</button>
+            </form>
+            <a class="gist-button" id="gistview" href="#" target="_blank">View Gist File</a>
+            <div class="message" id="message"></div>
+        </div>
     </div>
     
     <script src="js/settings.js"></script>
