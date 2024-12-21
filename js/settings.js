@@ -78,3 +78,20 @@ if (enc_token) {
     document.getElementById("token").value = savedToken;
     document.getElementById("encrkey").value = key;
 }
+
+
+document.querySelector('.toggle-password').addEventListener('click', function() {
+    const tokenInput = document.querySelector('#token');
+    if (tokenInput.type === 'password') {
+        tokenInput.type = 'text';
+        this.textContent = '👁️‍🗨️';
+    } else {
+        tokenInput.type = 'password';
+        this.textContent = '👁️';
+    }
+});
+
+const gistid = localStorage.getItem("page1_id");
+if (gistid) {
+    document.getElementById("gistview").href = 'https://gist.github.com/'+gistid;
+}
