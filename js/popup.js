@@ -187,6 +187,15 @@ function init() {
             });
         });
     });
+
+    const folder1Name = localStorage.getItem('folder1') || 'Folder 1';
+    const folder2Name = localStorage.getItem('folder2') || 'Folder 2';
+    const folder3Name = localStorage.getItem('folder3') || 'Folder 3';
+    const folder4Name = localStorage.getItem('folder4') || 'Folder 4';
+    document.getElementById('folder1').innerText = folder1Name.toUpperCase();
+    document.getElementById('folder2').innerText = folder2Name.toUpperCase();
+    document.getElementById('folder3').innerText = folder3Name.toUpperCase();
+    document.getElementById('folder4').innerText = folder4Name.toUpperCase();
 }
 
 function getToken() {
