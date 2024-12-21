@@ -13,6 +13,7 @@
             --input-bg: white;
             --button-bg: #4CAF50;
             --button-hover: #45a049;
+            --link-color: #2196F3;
         }
 
         .dark-mode {
@@ -22,6 +23,7 @@
             --input-bg: #1e1e1e;
             --button-bg: #388E3C;
             --button-hover: #2E7D32;
+            --link-color: #64B5F6;
         }
 
         body {
@@ -50,17 +52,29 @@
             margin-bottom: 8px;
         }
 
+        .password-container {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .password-container input {
+            width: 100%;
+            box-sizing: border-box;
+            padding-right: 40px;
+        }
+
         .form-container input {
-            width: 96%;
+            width: 100%;
             padding: 8px;
             margin-bottom: 10px;
             border: 1px solid var(--border-color);
             border-radius: 4px;
             background-color: var(--input-bg);
             color: var(--text-color);
+            box-sizing: border-box;
         }
 
-        .form-container button {
+        .submit-button {
             width: 100%;
             padding: 10px;
             background-color: var(--button-bg);
@@ -69,10 +83,28 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-bottom: 10px;
         }
 
-        .form-container button:hover {
+        .submit-button:hover {
             background-color: var(--button-hover);
+        }
+
+        .gist-button {
+            width: 95%;
+            display: block;
+            padding: 10px;
+            background-color: var(--link-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+
+        .gist-button:hover {
+            opacity: 0.9;
         }
 
         .message {
@@ -89,6 +121,28 @@
             font-size: 24px;
             cursor: pointer;
         }
+
+        .toggle-password {
+            position: absolute;
+            right: 4px;
+            top: 35%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 16px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+        }
+
+        .toggle-password:hover {
+            opacity: 0.8;
+        }
     </style>
 </head>
 
@@ -99,17 +153,20 @@
         <h2>Save GitHub Token</h2>
         <form id="tokenForm">
             <label for="token">GitHub Token:</label>
-            <input type="text" id="token" name="token" required>
+            <div class="password-container">
+                <input type="password" id="token" name="token" required>
+                <button type="button" class="toggle-password" aria-label="Toggle Password Visibility">👁️</button>
+            </div>
             
             <label for="encrkey">Encryption Key(1-100):</label>
             <input type="number" id="encrkey" name="encrkey" min="1" max="100" required>
-            <button type="submit">Save Token</button>
+            <button type="submit" class="submit-button">Save Token</button>
         </form>
+        <a class="gist-button" id="gistview" href="#" target="_blank">View Gist File</a>
         <div class="message" id="message"></div>
     </div>
     
     <script src="js/settings.js"></script>
-
 </body>
 
 </html>
