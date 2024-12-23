@@ -102,7 +102,7 @@ body {
     background-color: #2a2a2a;
     border-radius: 5px;
     padding: 15px;
-    height: clamp(200px, 50vh, 400px);
+    height: clamp(200px, 60vh, 400px);
     width: 100%;
 }
 
@@ -165,7 +165,7 @@ body {
     }
 
     .note {
-        height: clamp(150px, 40vh, 300px);
+        height: clamp(150px, 60vh, 300px);
     }
 
     .bottom-toolbar {
